@@ -1,0 +1,28 @@
+Title : Pursuer Evader Genetic Algorithm
+
+Author : Matthew Tyler
+
+Description : 
+
+As part of my effort to learn Scala I am re-implementing a simple Genetic Algorithm I developed some years ago.
+
+The Algorithm co-evolves populations of Pursuer and Evader Agents whose fitness is evaluated by competition against eachother.
+
+The main class is com.matthewtyler.pe.gui.PEGuiMainFrame.
+
+Please contact me on matthewtyler04@gmail.com if you want further details.
+
+To Do List.
+-----------
+
+1. Capture based on closest point over period rather than final position.
+2. Add 'nicer' build script to download dependencies and package release.
+
+
+Done
+-----------
+
+1. Migrate to Akka Actors.
+2. Add build script.
+
+
