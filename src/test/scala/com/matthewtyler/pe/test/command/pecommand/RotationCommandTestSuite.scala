@@ -1,7 +1,7 @@
 package com.matthewtyler.pe.test.command.pecommand
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.command.pecommand.RotationCommand
@@ -15,7 +15,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * RotationCommand test suite.
  */
-class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
+class RotationCommandTestSuite extends Suite with Logging with Matchers {
   
   import scala.math._
   
@@ -28,10 +28,10 @@ class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
      
       val rotationCommand = RotationCommand.newRandom(TestConstraints.tournamentConstraints)
            
-      // Direction must be -1.0 or 1.0.
-      // target must be 0.0..2Pi
-      rotationCommand.direction must (equal(-1.0) or equal(1.0))
-      rotationCommand.headingOffset must(be >= (0.0) or be <= (MathHelper.TWO_PI))
+      // Direction should be -1.0 or 1.0.
+      // target should be 0.0..2Pi
+      rotationCommand.direction should (equal(-1.0) or equal(1.0))
+      rotationCommand.headingOffset should(be >= (0.0) or be <= (MathHelper.TWO_PI))
     }
   }
   
@@ -50,8 +50,8 @@ class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
       
       val offspring = parent1 mate parent2
            
-      offspring.direction must((equal(parent1.direction) or equal(parent2.direction)) and (equal(-1.0) or equal(1.0)))
-      offspring.headingOffset must(be >=(minTarget) and be <=(maxTarget))
+      offspring.direction should((equal(parent1.direction) or equal(parent2.direction)) and (equal(-1.0) or equal(1.0)))
+      offspring.headingOffset should(be >=(minTarget) and be <=(maxTarget))
     }
   }
   
@@ -81,7 +81,7 @@ class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
       
       val nextState = rotationCommand.evaluate(initialState,opponentState)
       
-      initialState must equal(nextState)
+      initialState should equal(nextState)
     }   
   }
   
@@ -126,17 +126,17 @@ class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
         val nextState = command.evaluate(state,frameOfReferenceState)
         
         if(state.position != nextState.position) {
-          error("RotationCommand must not modify position.")
+          error("RotationCommand should not modify position.")
           return false
         }
         
         if(!MathHelper.doubleEquals(state.velocity.magnitude,nextState.velocity.magnitude)) {
-          error("RotationCommand must not modify speed.")
+          error("RotationCommand should not modify speed.")
           return false
         }
         
         if(!MathHelper.doubleEquals(state.energy,nextState.energy)) {
-          error("RotationCommand must not modify energy.")
+          error("RotationCommand should not modify energy.")
           return false
         }
         
@@ -169,7 +169,7 @@ class RotationCommandTestSuite extends Suite with Logging with MustMatchers {
         }
       }
       
-      validate(initialState) must be(true)
+      validate(initialState) should be(true)
     }
   }
 } 

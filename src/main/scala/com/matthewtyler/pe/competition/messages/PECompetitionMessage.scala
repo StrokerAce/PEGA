@@ -1,7 +1,5 @@
 package com.matthewtyler.pe.competition.messages
 
-import scala.actors.Actor
-
 import com.matthewtyler.pe.competition.PECompetition
 
 /**

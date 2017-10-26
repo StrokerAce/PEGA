@@ -40,7 +40,7 @@ object GuiHelper extends Logging {
       Right(conversion(value))
     }
     catch {
-      case e => Left(e.getMessage())
+      case e: Throwable => Left(e.getMessage())
     }
   }
   

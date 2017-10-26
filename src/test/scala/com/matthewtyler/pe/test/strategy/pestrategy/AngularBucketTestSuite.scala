@@ -1,7 +1,7 @@
 package com.matthewtyler.pe.test.strategy.pestrategy
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.math.MathHelper
@@ -16,7 +16,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * AngularBucket test suite.
  */
-class AngularBucketTestSuite extends Suite with MustMatchers {
+class AngularBucketTestSuite extends Suite with Matchers {
   
   import scala.math._
   
@@ -32,10 +32,10 @@ class AngularBucketTestSuite extends Suite with MustMatchers {
     val angularBuckets = randomAngularBucketContainer.angularBuckets
     
     // Validate the number of buckets is correct
-    angularBuckets.size must equal(TestConstraints.evaderConstraints.angularBuckets)
+    angularBuckets.size should equal(TestConstraints.evaderConstraints.angularBuckets)
     
     // Validate AngularBucketContainer structure.
-    PEStrategyHelper.validateAngularBucketContainer(randomAngularBucketContainer) must be(true)
+    PEStrategyHelper.validateAngularBucketContainer(randomAngularBucketContainer) should be(true)
         
     // Validate first bucket contains two pi.
     val twoPiVector = Vector(cos(MathHelper.TWO_PI),sin(MathHelper.TWO_PI))
@@ -45,7 +45,7 @@ class AngularBucketTestSuite extends Suite with MustMatchers {
           
     val twoPiState = PEState(twoPiVector,origin,evader,evader.constraints.startingEnergy,evader.constraints.winBonus)
       
-    angularBuckets.head.applies(twoPiState) must be(true)
+    angularBuckets.head.applies(twoPiState) should be(true)
   }
   
   /**
@@ -58,16 +58,16 @@ class AngularBucketTestSuite extends Suite with MustMatchers {
       val parent2 = AngularBucketContainer.newRandom(TestConstraints.evaderConstraints,TestConstraints.tournamentConstraints)
       
       // Validate parents
-      PEStrategyHelper.validateAngularBucketContainer(parent1) must be(true)
-      PEStrategyHelper.validateAngularBucketContainer(parent2) must be(true)
+      PEStrategyHelper.validateAngularBucketContainer(parent1) should be(true)
+      PEStrategyHelper.validateAngularBucketContainer(parent2) should be(true)
 
       val offspring = parent1 mate parent2
 
       // Validate offspring is same size as parents
-      parent1.angularBuckets.size must equal(offspring.angularBuckets.size)
+      parent1.angularBuckets.size should equal(offspring.angularBuckets.size)
 
       // Validate offspring AngularBucketContainer structure. 
-      PEStrategyHelper.validateAngularBucketContainer(offspring) must be (true)
+      PEStrategyHelper.validateAngularBucketContainer(offspring) should be (true)
     }
   }
 }

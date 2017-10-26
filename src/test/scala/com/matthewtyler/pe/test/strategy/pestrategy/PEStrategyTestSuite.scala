@@ -1,7 +1,7 @@
 package com.matthewtyler.pe.test.strategy.pestrategy
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.competition.{PECompetition, PECompetitionResult}
@@ -13,7 +13,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * StrategyTestSuite
  */
-class PEStrategyTestSuite extends Suite with MustMatchers {
+class PEStrategyTestSuite extends Suite with Matchers {
 
   /**
    * Test apply method
@@ -28,24 +28,24 @@ class PEStrategyTestSuite extends Suite with MustMatchers {
       val competitionResults = (PECompetition(evader,pursuer,TestConstraints.tournamentConstraints)).runCompetition
       
       // Validate the number of heats as expected.
-      competitionResults.size must equal(TestConstraints.tournamentConstraints.competitionHeats)
+      competitionResults.size should equal(TestConstraints.tournamentConstraints.competitionHeats)
       
       // Validate competition results
       for(competitionResult <- competitionResults) {
         
         // Validate result contains identical sized list of states
-        competitionResult.evaderStates.size must equal(competitionResult.pursuerStates.size)
+        competitionResult.evaderStates.size should equal(competitionResult.pursuerStates.size)
         
         // Validate evader states.
         for(evaderState <- competitionResult.evaderStates) {
-          evaderState.velocity.magnitude must (be <= evader.constraints.maxSpeed)
-          evaderState.energy must (be >= 0.0)
+          evaderState.velocity.magnitude should (be <= evader.constraints.maxSpeed)
+          evaderState.energy should (be >= 0.0)
         }
         
         // Validate pursuer states.
         for(pursuerState <- competitionResult.pursuerStates) {
-          pursuerState.velocity.magnitude must (be <= pursuer.constraints.maxSpeed)
-          pursuerState.velocity.magnitude must (be >= 0.0)
+          pursuerState.velocity.magnitude should (be <= pursuer.constraints.maxSpeed)
+          pursuerState.velocity.magnitude should (be >= 0.0)
         }
       }
     }

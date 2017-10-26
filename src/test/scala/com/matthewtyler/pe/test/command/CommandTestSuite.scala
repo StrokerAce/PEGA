@@ -1,10 +1,7 @@
 package com.matthewtyler.pe.test.command
 
+import com.matthewtyler.pe.test.command.pecommand.{ForceCommandTestSuite, RotationCommandTestSuite}
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
-
-import com.matthewtyler.pe.math.MathHelper
-import com.matthewtyler.pe.test.command.pecommand.{ForceCommandTestSuite,RotationCommandTestSuite}
 
 /**
  * Command test suite.

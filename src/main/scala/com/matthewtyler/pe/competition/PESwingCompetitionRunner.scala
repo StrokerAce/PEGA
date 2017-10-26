@@ -8,10 +8,16 @@ import scala.swing.Swing
 import com.matthewtyler.pe.competition.messages.{PECompetitionMessage,PECompetitionResultMessage}
 import com.matthewtyler.pe.logging.Logging
 
+object PESwingCompetitionRunner extends Publisher {
+  def publishMessage(message: PECompetitionResultMessage) = {
+    Swing.onEDT(publish(message))
+  }
+}
+
 /**
  * Actor processes a competition and publishes the result on the Swing EDT.
  */
-object PESwingCompetitionRunner extends Actor with Logging with Publisher {
+class PESwingCompetitionRunner extends Actor with Logging with Publisher {
 
     /**
    * preStart processing.
@@ -34,8 +40,9 @@ object PESwingCompetitionRunner extends Actor with Logging with Publisher {
     // Competition Message
     case PECompetitionMessage(competition,session) => {
         
-      info("Swing competition runner received PECompetitionMessage session {}", session)  
-      Swing.onEDT(publish(PECompetitionResultMessage(competition.runCompetition.toList,session)))
+      info("Swing competition runner received PECompetitionMessage session {}", session)
+
+      PESwingCompetitionRunner.publishMessage(PECompetitionResultMessage(competition.runCompetition.toList,session))
     }
   }  
 }

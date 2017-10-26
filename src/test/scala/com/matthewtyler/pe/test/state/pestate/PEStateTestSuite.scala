@@ -1,6 +1,6 @@
 package com.matthewtyler.pe.test.state.pestate
 
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 import org.scalatest.Suite
 
 import scala.annotation.tailrec
@@ -15,7 +15,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * Unit tests for PEState class and helpers.
  */
-class PEStateTestSuite extends Suite with Logging with MustMatchers {
+class PEStateTestSuite extends Suite with Logging with Matchers {
   
   import scala.math._
   
@@ -37,23 +37,23 @@ class PEStateTestSuite extends Suite with Logging with MustMatchers {
     val nextState1 = initialState.nextState(Pi, maxAcceleration)
        
     // Validate next position.
-    nextState1.position.magnitude must equal(maxAcceleration)
-    nextState1.position.theta must equal(Pi)
+    nextState1.position.magnitude should equal(maxAcceleration)
+    nextState1.position.theta should equal(Pi)
     
     // Validate next velocity
-    nextState1.velocity.magnitude must equal(maxAcceleration)
-    nextState1.velocity.theta must equal(Pi)
+    nextState1.velocity.magnitude should equal(maxAcceleration)
+    nextState1.velocity.theta should equal(Pi)
     
     // Rotate by -Pi/2 radians and set increase speed by maxAcceleration / 2.0
     val nextState2 = nextState1.nextState(-(Pi / 2.0),maxAcceleration/2.0)
     
     // Validate next position.
-    nextState2.position.magnitude must equal(sqrt(pow(maxAcceleration, 2.0) + pow(1.5 * maxAcceleration, 2.0)))
-    nextState2.position.theta must equal(MathHelper.getR(-maxAcceleration, 1.5 * maxAcceleration) )
+    nextState2.position.magnitude should equal(sqrt(pow(maxAcceleration, 2.0) + pow(1.5 * maxAcceleration, 2.0)))
+    nextState2.position.theta should equal(MathHelper.getR(-maxAcceleration, 1.5 * maxAcceleration) )
     
     // Validate next velocity
-    nextState2.velocity.magnitude must equal(1.5 * maxAcceleration)
-    nextState2.velocity.theta must equal(Pi / 2.0)
+    nextState2.velocity.magnitude should equal(1.5 * maxAcceleration)
+    nextState2.velocity.theta should equal(Pi / 2.0)
   }
 
   /**
@@ -84,12 +84,12 @@ class PEStateTestSuite extends Suite with Logging with MustMatchers {
     // New opponent position should be translated by - observer position and rotated by - observerVelocity.theta
     val expectedOpponentPosition = (opponentPosition - observerPosition) rotate -observerVelocity.theta
     
-    translatedObserverState.position must equal(expectedOpponentPosition)
+    translatedObserverState.position should equal(expectedOpponentPosition)
        
     // New opponent velocity should be rotated by -observerOrientation.theta
     val expectedOpponentVelocity = opponentVelocity rotate -observerVelocity.theta
     
-    translatedObserverState.velocity must equal(expectedOpponentVelocity)
+    translatedObserverState.velocity should equal(expectedOpponentVelocity)
   }
   
   /**
@@ -125,18 +125,18 @@ class PEStateTestSuite extends Suite with Logging with MustMatchers {
     @tailrec def validateStates(validationStates : List[PEState]): Unit = validationStates match {
     
       case List() =>
-      // Final state must equal s2
-      case h :: Nil => h must equal(s2)
+      // Final state should equal s2
+      case h :: Nil => h should equal(s2)
       case h :: t => {
         
         val initialState = h
         val finalState = t.head
       
         // Validate energy difference
-        MathHelper.doubleEquals(initialState.energy - finalState.energy,deltaEnergy) must be(true)
+        MathHelper.doubleEquals(initialState.energy - finalState.energy,deltaEnergy) should be(true)
         
         // Validate position difference
-        initialState.position + deltaVelocity must equal(finalState.position)
+        initialState.position + deltaVelocity should equal(finalState.position)
         
         validateStates(t)
       }

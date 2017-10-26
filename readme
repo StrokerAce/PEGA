@@ -16,13 +16,6 @@ To Do List.
 -----------
 
 1. Capture based on closest point over period rather than final position.
-2. Add 'nicer' build script to download dependencies and package release.
-
-
-Done
------------
-
-1. Migrate to Akka Actors.
-2. Add build script.
+2. Dynamic tournament screen resizing.
 
 

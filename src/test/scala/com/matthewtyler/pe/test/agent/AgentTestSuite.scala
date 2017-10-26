@@ -1,7 +1,6 @@
 package com.matthewtyler.pe.test.agent
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
 
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.math.Vector
@@ -11,7 +10,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * Agent test suite
  */
-class AgentTestSuite extends Suite with MustMatchers {
+class AgentTestSuite extends Suite {
 
   /**
    * Test Agent apply method.

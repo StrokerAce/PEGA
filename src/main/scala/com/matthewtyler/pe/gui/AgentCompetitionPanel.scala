@@ -29,7 +29,7 @@ object AgentCompetitionPanel extends BorderPanel with Logging {
    * Actor initialisation
    */
   val actorSystem = ActorSystem("PEGASwingActorSystem")
-  val swingCompetitionRunner = actorSystem.actorOf(Props(PESwingCompetitionRunner),name = "PESwingCompetitionRunner")
+  val swingCompetitionRunner = actorSystem.actorOf(Props(new PESwingCompetitionRunner),name = "PESwingCompetitionRunner")
   
   //Agent/fitness pairs.
   val evaders = HashMap[Int,List[AgentScore]]()

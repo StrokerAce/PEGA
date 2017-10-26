@@ -1,20 +1,16 @@
 package com.matthewtyler.pe.test.strategy.pestrategy
 
-import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
-
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.math.Vector
 import com.matthewtyler.pe.state.pestate.PEState
-import com.matthewtyler.pe.strategy.pestrategy.PEStrategyHelper
-import com.matthewtyler.pe.strategy.pestrategy.RadialBucket
-import com.matthewtyler.pe.strategy.pestrategy.RadialBucketContainer
+import com.matthewtyler.pe.strategy.pestrategy.{PEStrategyHelper, RadialBucketContainer}
 import com.matthewtyler.pe.test.constraints.TestConstraints
+import org.scalatest.{Matchers, Suite}
 
 /**
  * RadialBucket test suite.
  */
-class RadialBucketTestSuite extends Suite with MustMatchers {
+class RadialBucketTestSuite extends Suite with Matchers {
 
   /**
    * Test new random RadialBucketContainer functionality.
@@ -28,10 +24,10 @@ class RadialBucketTestSuite extends Suite with MustMatchers {
     val radialBuckets = randomRadialBucketContainer.radialBuckets
     
     // Validate the number of buckets is correct
-    radialBuckets.size must equal(TestConstraints.evaderConstraints.radialBuckets)
+    radialBuckets.size should equal(TestConstraints.evaderConstraints.radialBuckets)
     
     // Validate RadialBucketContainer structure.
-    PEStrategyHelper.validateRadialBucketContainer(randomRadialBucketContainer) must be(true)
+    PEStrategyHelper.validateRadialBucketContainer(randomRadialBucketContainer) should be(true)
     
     // Validate each bucket contains a vector with magnitude == radiusMin
     // Validate each bucket does not contain a vector with magnitude == radiusmax
@@ -45,14 +41,14 @@ class RadialBucketTestSuite extends Suite with MustMatchers {
       
       val lowerBoundState = PEState(lowerBoundVector,origin,evader,evader.constraints.startingEnergy,evader.constraints.winBonus)
       
-      bucket.applies(lowerBoundState) must be(true)
+      bucket.applies(lowerBoundState) should be(true)
       
       // Validate bucket does not contain upper boundary
       val upperBoundVector = Vector(bucket.radiusMax,0.0)
       
       val upperBoundState = PEState(upperBoundVector,origin,evader,evader.constraints.startingEnergy,evader.constraints.winBonus)
       
-      bucket.applies(upperBoundState) must be(false)
+      bucket.applies(upperBoundState) should be(false)
     }   
   }
   
@@ -69,22 +65,22 @@ class RadialBucketTestSuite extends Suite with MustMatchers {
       val offspring = parent1 mate parent2
 
       // Validate parents
-      PEStrategyHelper.validateRadialBucketContainer(parent1) must be(true)
-      PEStrategyHelper.validateRadialBucketContainer(parent2) must be(true)
+      PEStrategyHelper.validateRadialBucketContainer(parent1) should be(true)
+      PEStrategyHelper.validateRadialBucketContainer(parent2) should be(true)
       
       // Validate offspring is same size as parents
-      parent1.radialBuckets.size must equal(offspring.radialBuckets.size)
+      parent1.radialBuckets.size should equal(offspring.radialBuckets.size)
 
       // Validate offspring
-      PEStrategyHelper.validateRadialBucketContainer(offspring) must be(true)
+      PEStrategyHelper.validateRadialBucketContainer(offspring) should be(true)
       
       var cumulativeRadius = 0L
 
       // Validate offspring bucket boundaries
       for (bucket <- offspring.radialBuckets) {
 
-        bucket.radiusMin must equal(cumulativeRadius)
-        bucket.radiusMax must equal(cumulativeRadius + bucket.size)
+        bucket.radiusMin should equal(cumulativeRadius)
+        bucket.radiusMax should equal(cumulativeRadius + bucket.size)
 
         cumulativeRadius += bucket.size
       }

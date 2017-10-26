@@ -1,14 +1,13 @@
 package com.matthewtyler.pe.test.command.pecommand
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.agent.Agent
 import com.matthewtyler.pe.command.pecommand.ForceCommand
 import com.matthewtyler.pe.logging.Logging
 import com.matthewtyler.pe.math.{MathHelper, Vector}
 import com.matthewtyler.pe.physics.PhysicsHelper
-import com.matthewtyler.pe.random.RandomFactory
 import com.matthewtyler.pe.state.pestate.PEState
 import com.matthewtyler.pe.test.constraints.TestConstraints
 
@@ -16,7 +15,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * SpeedCommand test suite.
  */
-class ForceCommandTestSuite extends Suite with Logging with MustMatchers {
+class ForceCommandTestSuite extends Suite with Logging with Matchers {
 
   import scala.math._
   
@@ -29,11 +28,11 @@ class ForceCommandTestSuite extends Suite with Logging with MustMatchers {
       
       val forceCommand = ForceCommand.newRandom(TestConstraints.tournamentConstraints)
       
-      // forceFactor must be in range 0.0..1.0
-      forceCommand.forceFactor must (be >= (0.0) and be <= (1.0))
+      // forceFactor should be in range 0.0..1.0
+      forceCommand.forceFactor should (be >= (0.0) and be <= (1.0))
       
-      // speedFactor must be in range 0.0..1.0
-      forceCommand.speedFactor must (be >= (0.0) and be <= (1.0))
+      // speedFactor should be in range 0.0..1.0
+      forceCommand.speedFactor should (be >= (0.0) and be <= (1.0))
     }
   }
   
@@ -55,8 +54,8 @@ class ForceCommandTestSuite extends Suite with Logging with MustMatchers {
             
       val offspring = parent1 mate parent2
  
-      offspring.forceFactor must(be >= (minForceFactor) and be <= (maxForceFactor))
-      offspring.speedFactor must(be >= (minSpeedFactor) and be <= (maxSpeedFactor))
+      offspring.forceFactor should(be >= (minForceFactor) and be <= (maxForceFactor))
+      offspring.speedFactor should(be >= (minSpeedFactor) and be <= (maxSpeedFactor))
     }
   }
   
@@ -126,14 +125,14 @@ class ForceCommandTestSuite extends Suite with Logging with MustMatchers {
       
       val initialState = PEState(initialPosition,initialVelocity,evader,evader.constraints.startingEnergy,evader.constraints.winBonus)
       
-      initialState.velocity.magnitude must be(initialSpeed plusOrMinus MathHelper.EPS_DOUBLE)
+      initialState.velocity.magnitude should be(initialSpeed +- MathHelper.EPS_DOUBLE)
       
       debug("Validating Force Command")
       val command = ForceCommand.newRandom(TestConstraints.tournamentConstraints)
       
       val targetSpeed = command.speedFactor * constraints.maxSpeed
       
-      validateForceCommand(initialState,targetSpeed,command) must be (true)
+      validateForceCommand(initialState,targetSpeed,command) should be (true)
     }
   }
   

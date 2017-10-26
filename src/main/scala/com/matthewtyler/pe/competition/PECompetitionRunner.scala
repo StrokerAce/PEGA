@@ -1,10 +1,8 @@
 package com.matthewtyler.pe.competition
 
 import akka.actor.Actor
-
-import com.matthewtyler.pe.competition.messages.{PECompetitionMessage,PECompetitionResultMessage}
+import com.matthewtyler.pe.competition.messages.{PECompetitionMessage, PECompetitionResultMessage}
 import com.matthewtyler.pe.logging.Logging
-import com.matthewtyler.pe.tournament.messages.PETournamentStartMessage
 
 /**
  * PECompetitionRunner

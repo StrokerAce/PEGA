@@ -1,7 +1,7 @@
 package com.matthewtyler.pe.test.strategy.tactic
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import scala.annotation.tailrec
 
@@ -16,7 +16,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * PETactic test suite
  */
-class PETacticTestSuite extends Suite with Logging with MustMatchers {
+class PETacticTestSuite extends Suite with Logging with Matchers {
 
   import scala.math._
   
@@ -92,7 +92,7 @@ class PETacticTestSuite extends Suite with Logging with MustMatchers {
         }
       }
       
-      validate(initialState,10) must be(true)
+      validate(initialState,10) should be(true)
     }
   }
   
@@ -126,11 +126,11 @@ class PETacticTestSuite extends Suite with Logging with MustMatchers {
       val oRC = offspring.rotationCommand
       val oSC = offspring.forceCommand
 
-      oRC.direction must (equal(p1RC.direction) or equal(p2RC.direction))
-      oRC.headingOffset must(be >= (minRCHeadingOffset) or be <= (maxRCHeadingOffset))
+      oRC.direction should (equal(p1RC.direction) or equal(p2RC.direction))
+      oRC.headingOffset should(be >= (minRCHeadingOffset) or be <= (maxRCHeadingOffset))
     
-      oSC.forceFactor must(be >=(minSCForceFactor) and be <=(maxSCForceFactor))
-      oSC.speedFactor must(be >=(minSCSpeedFactor) and be <=(maxSCSpeedFactor))
+      oSC.forceFactor should(be >=(minSCForceFactor) and be <=(maxSCForceFactor))
+      oSC.speedFactor should(be >=(minSCSpeedFactor) and be <=(maxSCSpeedFactor))
     }
   } 
  }

@@ -1,25 +1,17 @@
 package com.matthewtyler.pe.gui
 
-import java.util.TimerTask
-import java.util.Timer
-
-import java.awt.{ Image, Color, Dimension, Graphics, Graphics2D, Point, geom }
-import java.awt.EventQueue
+import java.awt.{Color, Dimension, Graphics, Image}
 import javax.swing.JPanel
 
-import scala.swing.{Publisher,Swing}
-import scala.swing.Swing._
-import scala.swing.SimpleSwingApplication
-import scala.swing.{ FlowPanel, MainFrame, Panel, SimpleGUIApplication }
-import scala.swing.event._
-
-import akka.actor.{Actor,ActorSystem,ActorRef,Cancellable,Props}
-import com.typesafe.config.ConfigFactory
-
+import akka.actor.{Actor, ActorRef, ActorSystem, Cancellable, Props}
 import com.matthewtyler.pe.competition.PECompetitionResult
 import com.matthewtyler.pe.gui.messages.ReplayCompleteMessage
 import com.matthewtyler.pe.logging.Logging
 import com.matthewtyler.pe.state.pestate.PEState
+import com.typesafe.config.ConfigFactory
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.swing.{Panel, Publisher, Swing}
 
 /**
  * Agent Competition Canvas.
@@ -39,7 +31,7 @@ object AgentCompetitionCanvas extends Panel with Logging with Publisher{
   private val yOffset = maxHeight.toDouble / 2.0  
   
   private val expansionRatio = 20
-  private val millisBetweenUpdates = 8
+  private val millisBetweenUpdates = 10
   
   // Font size for trace data
   private val fontSize = 10
@@ -123,9 +115,10 @@ object AgentCompetitionCanvas extends Panel with Logging with Publisher{
    * Runs competition.
    */
   class CompetitionActor(private val result : PECompetitionResult) extends Actor {
-   
-    import akka.util.Duration
+
     import java.util.concurrent.TimeUnit.MILLISECONDS
+
+    import scala.concurrent.duration.FiniteDuration
     
     /**
      * preStart processing.
@@ -179,11 +172,11 @@ object AgentCompetitionCanvas extends Panel with Logging with Publisher{
       case 'START => {
         
        val expandedResult = result.expand(expansionRatio)
-       context.system.scheduler.scheduleOnce(Duration(millisBetweenUpdates,MILLISECONDS)){self ! 'Tick}
+       context.system.scheduler.scheduleOnce(FiniteDuration(millisBetweenUpdates,MILLISECONDS)){self ! 'Tick}
        
        
-       val cancellable = context.system.scheduler.schedule(Duration.Zero,
-                                                           Duration(millisBetweenUpdates,MILLISECONDS))
+       val cancellable = context.system.scheduler.schedule(FiniteDuration(0, MILLISECONDS),
+                                                           FiniteDuration(millisBetweenUpdates,MILLISECONDS))
                                                            {self ! 'Tick}
       
        context.become(update(expandedResult.evaderStates,expandedResult.pursuerStates,cancellable))        
@@ -199,7 +192,7 @@ object AgentCompetitionCanvas extends Panel with Logging with Publisher{
    */
   val customConf = ConfigFactory.parseString("""
     akka.scheduler {
-      tick-duration = 1ms
+      tick-duration = 10ms
     }""")
 
   private val agentCompetitionActorSystem = ActorSystem("agentCompetitionActorSystem",ConfigFactory.load(customConf))

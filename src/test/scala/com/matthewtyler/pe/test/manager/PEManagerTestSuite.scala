@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.actor.Props
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.logging.Logging
 import com.matthewtyler.pe.manager.PEManager
@@ -14,7 +14,7 @@ import com.matthewtyler.pe.test.constraints.TestConstraints
 /**
  * PETournament test suite.
  */
-class PEManagerTestSuite extends Suite with MustMatchers with Logging {
+class PEManagerTestSuite extends Suite with Matchers with Logging {
 
   /**
    * Test PETournament
@@ -32,7 +32,7 @@ class PEManagerTestSuite extends Suite with MustMatchers with Logging {
     
     Thread.sleep(15000)
     
-    testActorSystem.shutdown()                                    
+    testActorSystem.terminate
   } 
 }
 

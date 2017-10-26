@@ -1,7 +1,7 @@
 package com.matthewtyler.pe.test.math
 
 import org.scalatest.Suite
-import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
 
 import com.matthewtyler.pe.math.MathHelper
 import com.matthewtyler.pe.math.Vector
@@ -9,7 +9,7 @@ import com.matthewtyler.pe.math.Vector
 /**
  * Unit tests for Vector class and helpers.
  */
-class VectorTestSuite extends Suite with MustMatchers {
+class VectorTestSuite extends Suite with Matchers {
   
   import scala.math._
   
@@ -23,10 +23,10 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val sum = vector1 + vector2
     
-    sum.i must equal(2.0)
-    sum.j must equal(2.0)
-    sum.magnitude must equal(sqrt(8.0))
-    sum.theta must equal(Pi / 4.0)
+    sum.i should equal(2.0)
+    sum.j should equal(2.0)
+    sum.magnitude should equal(sqrt(8.0))
+    sum.theta should equal(Pi / 4.0)
   }
   
   /**
@@ -38,11 +38,11 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val increasedVector1 = vector1 addMagnitude 1.0
     
-    increasedVector1.magnitude must equal(6.0)
+    increasedVector1.magnitude should equal(6.0)
     
     val oppositeVector1 = vector1 addMagnitude -10.0
     
-    oppositeVector1.magnitude must equal(5.0)
+    oppositeVector1.magnitude should equal(5.0)
   }
   
   /**
@@ -55,10 +55,10 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val diff = vector1 - vector2
     
-    diff.i must equal(-2.0)
-    diff.j must equal(2.0)
-    diff.magnitude must be(sqrt(8.0) plusOrMinus MathHelper.EPS_DOUBLE)
-    diff.theta must be(Pi * (3.0/4.0) plusOrMinus MathHelper.EPS_DOUBLE)   
+    diff.i should equal(-2.0)
+    diff.j should equal(2.0)
+    diff.magnitude should be(sqrt(8.0) +- MathHelper.EPS_DOUBLE)
+    diff.theta should be(Pi * (3.0/4.0) +- MathHelper.EPS_DOUBLE)
   }
   
   /**
@@ -69,10 +69,10 @@ class VectorTestSuite extends Suite with MustMatchers {
     val vector1 = new Vector(1.0,1.0)
     val vector2 = new Vector(-1.0,1.0)
     
-    vector1 angleBetween vector2 must equal(MathHelper.HALF_PI)
+    vector1 angleBetween vector2 should equal(MathHelper.HALF_PI)
     
     val vector3 = new Vector(0.0,-1.0)
-    vector1 angleBetween vector3 must be(Pi * (3.0/4.0) plusOrMinus MathHelper.EPS_DOUBLE)
+    vector1 angleBetween vector3 should be(Pi * (3.0/4.0) +- MathHelper.EPS_DOUBLE)
   }
   
   /**
@@ -83,11 +83,11 @@ class VectorTestSuite extends Suite with MustMatchers {
     val vector1 = new Vector(1.0,0.0)
     val vector2 = new Vector(11.0,0.0)
     
-    vector1 scalarProduct vector2 must equal(11.0)
+    vector1 scalarProduct vector2 should equal(11.0)
     
     val vector3 = new Vector(0.0,99.5)
     
-    vector1 scalarProduct vector3 must equal(0.0)
+    vector1 scalarProduct vector3 should equal(0.0)
   }
   
   /**
@@ -99,19 +99,19 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val rotated1 = vector1 rotate (Pi * (3.0/4.0))
     
-    rotated1.i must be(-sqrt(0.5) plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated1.j must be(sqrt(0.5) plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated1.magnitude must be(1.0 plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated1.theta must be(Pi * (3.0/4.0) plusOrMinus MathHelper.EPS_DOUBLE)
+    rotated1.i should be(-sqrt(0.5) +- MathHelper.EPS_DOUBLE)
+    rotated1.j should be(sqrt(0.5) +- MathHelper.EPS_DOUBLE)
+    rotated1.magnitude should be(1.0 +- MathHelper.EPS_DOUBLE)
+    rotated1.theta should be(Pi * (3.0/4.0) +- MathHelper.EPS_DOUBLE)
     
     val rotated2 = vector1 rotate (-Pi / 4)
     
     MathHelper.getR(rotated2.i, rotated2.j)
     
-    rotated2.i must be(sqrt(0.5) plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated2.j must be(-sqrt(0.5) plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated2.magnitude must be(1.0 plusOrMinus MathHelper.EPS_DOUBLE)
-    rotated2.theta must be(MathHelper.TWO_PI - (Pi / 4) plusOrMinus MathHelper.EPS_DOUBLE)    
+    rotated2.i should be(sqrt(0.5) +- MathHelper.EPS_DOUBLE)
+    rotated2.j should be(-sqrt(0.5) +- MathHelper.EPS_DOUBLE)
+    rotated2.magnitude should be(1.0 +- MathHelper.EPS_DOUBLE)
+    rotated2.theta should be(MathHelper.TWO_PI - (Pi / 4) +- MathHelper.EPS_DOUBLE)
   }
   
   /**
@@ -123,10 +123,10 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val scaled = vector1 scale Pi
     
-    scaled.i must equal(vector1.i * Pi)
-    scaled.j must equal(vector1.j * Pi)
-    scaled.magnitude must equal(vector1.magnitude * Pi)
-    scaled.theta must equal(vector1.theta)
+    scaled.i should equal(vector1.i * Pi)
+    scaled.j should equal(vector1.j * Pi)
+    scaled.magnitude should equal(vector1.magnitude * Pi)
+    scaled.theta should equal(vector1.theta)
   }
   
   /** 
@@ -138,8 +138,8 @@ class VectorTestSuite extends Suite with MustMatchers {
     
     val unitVector = vector1.unitVector
     
-    unitVector.magnitude must equal(1.0)
-    unitVector.theta must equal(Pi / 4.0)
+    unitVector.magnitude should equal(1.0)
+    unitVector.theta should equal(Pi / 4.0)
   }
 }
 

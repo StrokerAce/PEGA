@@ -1,24 +1,18 @@
 package com.matthewtyler.pe.gui
 
 import java.awt.Color
+import javax.swing.border.{LineBorder, TitledBorder}
 
-import javax.swing.border.{LineBorder,TitledBorder}
-
-import scala.collection.mutable.HashMap
-import scala.swing._
-import scala.swing.event._
-import scala.swing.Publisher
-import scala.swing.TabbedPane._
-import scala.swing.ListView.IntervalMode
-
-import akka.actor.{ActorSystem,Props}
-import com.typesafe.config.ConfigFactory
-
-import com.matthewtyler.pe.agent.Agent
+import akka.actor.{ActorSystem, Props}
 import com.matthewtyler.pe.logging.Logging
 import com.matthewtyler.pe.manager.PEManager
 import com.matthewtyler.pe.tournament._
 import com.matthewtyler.pe.tournament.messages._
+import com.typesafe.config.ConfigFactory
+
+import scala.swing.TabbedPane._
+import scala.swing.{Publisher, _}
+import scala.swing.event._
 
 /**
  * This will eventually be the Main frame of the GA GUI and enable
@@ -243,7 +237,7 @@ object PEGuiMainFrame extends SwingApplication with Logging with Publisher {
         }
         catch {
               
-          case e => {
+          case e: Throwable => {
             error(e.getMessage())
             GuiHelper.updateFields(outputFields,_.text = "0")
             toggleStartStopEnabled
@@ -359,7 +353,7 @@ object PEGuiMainFrame extends SwingApplication with Logging with Publisher {
    */
   override def quit() = {
     // Shutdown actor system.
-    top.actorSystem.shutdown
+    top.actorSystem.terminate
     info("Exited GUI.")
   }
 }
