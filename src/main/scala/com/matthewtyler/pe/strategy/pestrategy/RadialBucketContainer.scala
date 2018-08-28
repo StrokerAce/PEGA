@@ -24,19 +24,17 @@ class RadialBucketContainer private(val radialBuckets : List[RadialBucket],
   /**
    * Implement Instruction trait.
    */
-  def apply(myState : PEState,opponentState : PEState) = {
+  def applyInstruction(myState : PEState,opponentState : PEState) = {
     
     // Check to see if opponent state lies beyond radialBucketList range.
     // If so apply longRangeInstruction
     if(radialBuckets.last.radiusMax >= opponentState.position.theta) {
-      longRangeTactic.apply(myState,opponentState)
+      longRangeTactic.applyInstruction(myState,opponentState)
     }
-    else {      
-      
-      radialBuckets.find(radialBucket => radialBucket.applies(opponentState)) match {
-        case None => longRangeTactic.apply(myState,opponentState)    
-        case Some(bucket) => bucket.apply(myState,opponentState)  
-      }
+    else {
+      radialBuckets.find(radialBucket => radialBucket.applies(opponentState))
+        .map(_.applyInstruction(myState,opponentState))
+        .getOrElse(longRangeTactic.applyInstruction(myState,opponentState))
     }
   }
   

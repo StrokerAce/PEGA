@@ -1,6 +1,6 @@
 package com.matthewtyler.pe.gui
 
-import java.awt.Color
+import java.awt.{Color, Toolkit}
 import javax.swing.border.{LineBorder, TitledBorder}
 
 import akka.actor.{ActorSystem, Props}
@@ -26,7 +26,9 @@ object PEGuiMainFrame extends SwingApplication with Logging with Publisher {
   def top = new MainFrame {
     
     title = "Pursuer Evader Genetic Algorithm"
-      
+
+    self.setMaximumSize(Toolkit.getDefaultToolkit.getScreenSize)
+
     /*
      * Tournament session.
      */
@@ -342,7 +344,6 @@ object PEGuiMainFrame extends SwingApplication with Logging with Publisher {
   def startup(args: Array[String]) = {
     
     info("Started GUI.")
-    
     top.open()
   }
   

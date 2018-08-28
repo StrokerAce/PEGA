@@ -36,7 +36,7 @@ class RadialBucket(val index : Long,
   /**
    * Implement Instruction trait
    */
-  def apply(myState : PEState,opponentState : PEState) = tactic.apply(myState, opponentState)
+  def applyInstruction(myState : PEState,opponentState : PEState) = tactic.applyInstruction(myState, opponentState)
   
   /**
    * Implement Mateable trait.

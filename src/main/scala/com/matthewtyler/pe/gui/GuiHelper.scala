@@ -63,9 +63,7 @@ object GuiHelper extends Logging {
    * Parse input and validate parsed value satisfies validation function.
    */
   def convertAndValidate[T](value : Either[String,T])(validate : T => Either[String,T]): Either[String,T] = value match {
-    
     case Left(message) => Left("Error parsing input %s".format(value))
-    
     case Right(value) => validate(value)
   }
   
@@ -80,14 +78,11 @@ object GuiHelper extends Logging {
                              validation : Either[String,_],
                              title      : String) = validation match {
      
-    case Left(message) => {
+    case Left(message) =>
       Dialog.showMessage(component,message,title,Message.Error)
       textField.text = default
-    }
-      
-    case Right(value) => {
+    case Right(value) =>
       debug("Set {} to {}",title,value)
-    }
   }
   
   /**

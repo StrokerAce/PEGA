@@ -12,7 +12,7 @@ class PEStrategy private (val angularBucketContainer : AngularBucketContainer) e
   /**
    * Implement Instruction trait.
    */
-  def apply(myState : PEState,opponentState : PEState) = angularBucketContainer.apply(myState, opponentState)
+  def applyInstruction(myState : PEState,opponentState : PEState) = angularBucketContainer.applyInstruction(myState, opponentState)
   
   /**
    * Implement Mateable trait.

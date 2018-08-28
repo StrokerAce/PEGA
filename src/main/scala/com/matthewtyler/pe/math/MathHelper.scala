@@ -44,7 +44,7 @@ object MathHelper {
   }
   
   /**
-   * Returns true if the absolute differencene between two Doubles is less than EPS_DOUBLE.
+   * Returns true if the absolute difference between two Doubles is less than EPS_DOUBLE.
    */
   def doubleEquals(a : Double,b : Double) = abs(a - b) < EPS_DOUBLE
   
@@ -59,7 +59,7 @@ object MathHelper {
   def >= (left : Double,right : Double) = doubleEquals(left - right,0.0) || left >= right  
   
   /**
-   * Get radial component of polar translated fromi,j in range 0..2 Pi
+   * Get radial component of polar translated from i,j in range 0..2 Pi
    */
   def getR(i : Double,j : Double) = {
     

@@ -20,10 +20,10 @@ class AngularBucketContainer private(val angularBuckets : List[AngularBucket]) e
   /**
    * Implement Instruction trait.
    */
-  def apply(myState : PEState,opponentState : PEState) = { 
+  def applyInstruction(myState : PEState,opponentState : PEState) = {
     angularBuckets.find(angularBucket => angularBucket.applies(opponentState)) match {
       case None => throw new RuntimeException("AngularBucketContainer % s does not contain opponent state %s".format(this,opponentState))     
-      case Some(bucket) => bucket.apply(myState,opponentState)
+      case Some(bucket) => bucket.applyInstruction(myState,opponentState)
     }
   }
   

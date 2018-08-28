@@ -30,7 +30,7 @@ class AngularBucket (val index : Long,
   /**
    * Implement Instruction trait.
    */
-  def apply(myState : PEState,opponentState : PEState) = radialBuckets.apply(myState, opponentState)
+  def applyInstruction(myState : PEState,opponentState : PEState) = radialBuckets.applyInstruction(myState, opponentState)
   
   /**
    * Implement Mateable trait

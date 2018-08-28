@@ -39,9 +39,7 @@ class PEWinPanel extends BoxPanel(Orientation.Vertical) with Logging {
   
   contents += new Panel() {
     val chartPanel = new ChartPanel(winsChart)
-    
-    //chartPanel.setPreferredSize(new Dimension(600,150))
-    
+    chartPanel.setPreferredSize(new Dimension(1100,700))
     peer.add(chartPanel)
   }
     
@@ -50,7 +48,6 @@ class PEWinPanel extends BoxPanel(Orientation.Vertical) with Logging {
    */
   def reset = {
     time = 0.0;
-    
     evaderWinsSeries.clear
     pursuerWinsSeries.clear
   }
@@ -59,7 +56,6 @@ class PEWinPanel extends BoxPanel(Orientation.Vertical) with Logging {
    * Update wins.
    */
   def update(evaderWins : Int,pursuerWins : Int ) = {
-      
     evaderWinsSeries.add(time,evaderWins)
     pursuerWinsSeries.add(time,pursuerWins)
     time += 1.0

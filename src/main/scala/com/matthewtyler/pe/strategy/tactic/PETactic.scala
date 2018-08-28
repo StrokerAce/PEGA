@@ -18,7 +18,7 @@ class PETactic(val rotationCommand : RotationCommand,val forceCommand : ForceCom
    * Implement Instruction trait.
    * Apply instructions to generate new state.
    */
-  def apply(myState : PEState,opponentState : PEState) = forceCommand.evaluate(rotationCommand.evaluate(myState,opponentState))
+  def applyInstruction(myState : PEState,opponentState : PEState) = forceCommand.evaluate(rotationCommand.evaluate(myState,opponentState))
   
   /**
    * Implement Mateable trait.

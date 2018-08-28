@@ -1,17 +1,15 @@
 package com.matthewtyler.pe.test.strategy.tactic
 
-import org.scalatest.Suite
-import org.scalatest.Matchers
-
-import scala.annotation.tailrec
-
 import com.matthewtyler.pe.agent.Agent
-import com.matthewtyler.pe.command.pecommand.{ForceCommand,RotationCommand}
+import com.matthewtyler.pe.command.pecommand.{ForceCommand, RotationCommand}
 import com.matthewtyler.pe.logging.Logging
-import com.matthewtyler.pe.math.{MathHelper,Vector}
+import com.matthewtyler.pe.math.{MathHelper, Vector}
 import com.matthewtyler.pe.state.pestate.PEState
 import com.matthewtyler.pe.strategy.tactic.PETactic
 import com.matthewtyler.pe.test.constraints.TestConstraints
+import org.scalatest.{Matchers, Suite}
+
+import scala.annotation.tailrec
 
 /**
  * PETactic test suite
@@ -55,7 +53,7 @@ class PETacticTestSuite extends Suite with Logging with Matchers {
         
         val afterForceState = forceCommand.evaluate(state,preFrameOfReferenceState)
        
-        val afterTacticState = tactic.apply(state,preFrameOfReferenceState)
+        val afterTacticState = tactic.applyInstruction(state,preFrameOfReferenceState)
         
         val postFrameOfReferenceState = PEState.toFrameOfReference(afterTacticState,opponentState)
         

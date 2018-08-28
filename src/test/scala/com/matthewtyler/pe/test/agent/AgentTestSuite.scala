@@ -29,7 +29,7 @@ class AgentTestSuite extends Suite {
     val evaderInitialState = new PEState(evaderInitialPosition,evaderInitialVelocity,evader,evader.constraints.startingEnergy,evader.constraints.winBonus)
     val pursuerInitialState = new PEState(pursuerInitialPosition,pursuerInitialVelocity,pursuer,pursuer.constraints.startingEnergy,pursuer.constraints.winBonus)
     
-    val evaderState = evader.apply(evaderInitialState,pursuerInitialState)
+    evader.applyInstruction(evaderInitialState,pursuerInitialState)
   }
 }
 

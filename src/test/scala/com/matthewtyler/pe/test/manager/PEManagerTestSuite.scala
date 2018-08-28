@@ -19,7 +19,7 @@ class PEManagerTestSuite extends Suite with Matchers with Logging {
   /**
    * Test PETournament
    */
-  def testTournament = {
+  def tournamentTest = {
         
     val testActorSystem = ActorSystem("TestActorSystem")
     val peManager = testActorSystem.actorOf(Props(PEManager),name = "TestPEManger")
